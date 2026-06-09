@@ -1,0 +1,116 @@
+<p-dialog
+  header="Detalle de Transacción"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50vw', minWidth: '40rem' }"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="custom-dialog"
+>
+  @if (transaction(); as tx) {
+    <div class="dialog-content-container flex flex-col gap-4">
+
+      <div class="flex items-center justify-between pb-4 border-b border-surface-200">
+        <div>
+          <span class="text-xs uppercase font-semibold text-neutral-500 tracking-wider">Identificador Externo</span>
+          <h2 class="text-xl font-bold text-primary-800 font-mono">{{ tx.externalId }}</h2>
+        </div>
+        <p-tag
+          [value]="tx.status | titlecase"
+          [severity]="getStatusSeverity(tx.status)"
+          [icon]="getStatusIcon(tx.status)"
+          [rounded]="true"
+        />
+      </div>
+
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 bg-surface-50 rounded-lg p-3 my-1 border border-surface-100">
+        <div>
+          <span class="block text-xs text-neutral-500">ID Interno</span>
+          <span class="font-semibold text-secondary-800">#{{ tx.id }}</span>
+        </div>
+        <div>
+          <span class="block text-xs text-neutral-500">Tipo</span>
+          <span class="font-semibold text-secondary-800">{{ getTypeLabel(tx.type) }}</span>
+        </div>
+        <div>
+          <span class="block text-xs text-neutral-500">Sistema Origen</span>
+          <span class="font-semibold text-secondary-800">{{ tx.sourceSystem }}</span>
+        </div>
+        <div>
+          <span class="block text-xs text-neutral-500">Actualizado</span>
+          <span class="font-semibold text-secondary-800 text-xs">{{ tx.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      </div>
+
+
+      @if (tx.errorMessage) {
+        <div class="error-banner mb-2">
+          <i class="pi pi-exclamation-triangle"></i>
+          <div>
+            <span class="block font-bold">Error del sistema</span>
+            <p class="m-0 text-xs">{{ tx.errorMessage }}</p>
+          </div>
+        </div>
+      }
+
+
+      <div class="flex flex-col gap-4">
+
+        <div>
+          <span class="block text-sm font-bold text-primary-800 mb-2">Payload (Datos Recibidos)</span>
+          <div class="payload-box">
+            <pre class="m-0 text-xs overflow-x-auto">{{ tx.payload | json }}</pre>
+          </div>
+        </div>
+
+
+        <div>
+          <span class="block text-sm font-bold text-primary-800 mb-2">Historial de Eventos</span>
+          <div class="events-timeline">
+            @for (event of tx.events; track event.timestamp; let last = $last) {
+              <div class="timeline-item">
+                <div class="timeline-marker-container">
+                  <div class="timeline-marker"></div>
+                  @if (!last) {
+                    <div class="timeline-connector"></div>
+                  }
+                </div>
+                <div class="timeline-content">
+                  <div class="flex justify-between items-start">
+                    <span class="font-semibold text-xs text-secondary-800 capitalize">{{ event.action }}</span>
+                    <span class="text-[10px] text-neutral-500">{{ event.timestamp | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+                  </div>
+                  <p class="m-0 text-xs text-neutral-600 mt-1">{{ event.detail }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #footer>
+      <div class="flex justify-end gap-2 border-t border-surface-200 pt-3">
+        <p-button
+          label="Cerrar"
+          icon="pi pi-times"
+          severity="secondary"
+          [text]="true"
+          (onClick)="visible.set(false)"
+        />
+        @if (tx.status === 'fallida') {
+          <p-button
+            label="Reprocesar Transacción"
+            icon="pi pi-replay"
+            severity="danger"
+            [loading]="reprocessing()"
+            (onClick)="onReprocessClick(tx, $event)"
+          />
+        }
+      </div>
+    </ng-template>
+  }
+</p-dialog>

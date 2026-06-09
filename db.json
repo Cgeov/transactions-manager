@@ -1,0 +1,821 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "externalId": "EXT-2026-00147",
+      "type": "venta",
+      "sourceSystem": "SAP",
+      "status": "completada",
+      "receivedAt": "2026-06-08T08:23:10Z",
+      "updatedAt": "2026-06-08T08:25:44Z",
+      "payload": {
+        "orderId": "ORD-88412",
+        "customer": "María López",
+        "items": [
+          {
+            "sku": "TV-SAM-55",
+            "qty": 1,
+            "price": 549.99
+          }
+        ],
+        "total": 549.99,
+        "currency": "USD"
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-08T08:23:10Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde SAP"
+        },
+        {
+          "timestamp": "2026-06-08T08:24:02Z",
+          "action": "validada",
+          "detail": "Payload validado correctamente"
+        },
+        {
+          "timestamp": "2026-06-08T08:25:44Z",
+          "action": "completada",
+          "detail": "Procesamiento finalizado con éxito"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "externalId": "EXT-2026-00148",
+      "type": "devolución",
+      "sourceSystem": "Magento",
+      "status": "fallida",
+      "receivedAt": "2026-06-08T09:10:33Z",
+      "updatedAt": "2026-06-07T02:13:53.451Z",
+      "payload": {
+        "returnId": "RET-3321",
+        "customer": "Carlos Méndez",
+        "items": [
+          {
+            "sku": "LAP-HP-14",
+            "qty": 1,
+            "price": 899
+          }
+        ],
+        "reason": "Producto defectuoso"
+      },
+      "errorMessage": "Error de conexión con servicio de inventario: timeout después de 30s",
+      "events": [
+        {
+          "timestamp": "2026-06-08T09:10:33Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Magento"
+        },
+        {
+          "timestamp": "2026-06-08T09:11:20Z",
+          "action": "procesando",
+          "detail": "Validación de inventario iniciada"
+        },
+        {
+          "timestamp": "2026-06-08T09:12:05Z",
+          "action": "fallida",
+          "detail": "Timeout en servicio de inventario"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "externalId": "EXT-2026-00149",
+      "type": "ajuste_inventario",
+      "sourceSystem": "WMS",
+      "status": "fallida",
+      "receivedAt": "2026-06-08T10:05:00Z",
+      "updatedAt": "2026-06-08T10:09:22Z",
+      "payload": {
+        "warehouseId": "WH-003",
+        "adjustments": [
+          {
+            "sku": "REF-LG-22",
+            "from": 50,
+            "to": 47
+          },
+          {
+            "sku": "MIC-SON-01",
+            "from": 120,
+            "to": 118
+          }
+        ]
+      },
+      "errorMessage": "No se pudo conectar con el sistema WMS: conexión rechazada en puerto 8443",
+      "events": [
+        {
+          "timestamp": "2026-06-08T10:05:00Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde WMS"
+        },
+        {
+          "timestamp": "2026-06-08T10:07:45Z",
+          "action": "procesando",
+          "detail": "Iniciando validación de ajuste"
+        },
+        {
+          "timestamp": "2026-06-08T10:09:22Z",
+          "action": "fallida",
+          "detail": "Conexión rechazada con sistema WMS en puerto 8443"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "externalId": "EXT-2026-00150",
+      "type": "venta",
+      "sourceSystem": "Shopify",
+      "status": "fallida",
+      "receivedAt": "2026-06-08T11:30:22Z",
+      "updatedAt": "2026-06-08T11:34:55Z",
+      "payload": {
+        "orderId": "ORD-88500",
+        "customer": "Ana Gutiérrez",
+        "items": [
+          {
+            "sku": "CEL-APP-15",
+            "qty": 1,
+            "price": 1199
+          },
+          {
+            "sku": "CASE-APP-15",
+            "qty": 2,
+            "price": 29.99
+          }
+        ],
+        "total": 1258.98,
+        "currency": "USD"
+      },
+      "errorMessage": "Pago rechazado por el banco emisor: fondos insuficientes (código: INSUF_FUNDS)",
+      "events": [
+        {
+          "timestamp": "2026-06-08T11:30:22Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Shopify"
+        },
+        {
+          "timestamp": "2026-06-08T11:31:10Z",
+          "action": "procesando",
+          "detail": "Procesamiento de pago en curso"
+        },
+        {
+          "timestamp": "2026-06-08T11:34:55Z",
+          "action": "fallida",
+          "detail": "Pago rechazado — fondos insuficientes"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "externalId": "EXT-2026-00151",
+      "type": "transferencia",
+      "sourceSystem": "SAP",
+      "status": "completada",
+      "receivedAt": "2026-06-07T14:20:00Z",
+      "updatedAt": "2026-06-07T14:35:12Z",
+      "payload": {
+        "transferId": "TRF-1120",
+        "fromWarehouse": "WH-001",
+        "toWarehouse": "WH-003",
+        "items": [
+          {
+            "sku": "TV-LG-65",
+            "qty": 10
+          }
+        ]
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-07T14:20:00Z",
+          "action": "recibida",
+          "detail": "Solicitud de transferencia recibida"
+        },
+        {
+          "timestamp": "2026-06-07T14:25:30Z",
+          "action": "validada",
+          "detail": "Stock disponible verificado"
+        },
+        {
+          "timestamp": "2026-06-07T14:35:12Z",
+          "action": "completada",
+          "detail": "Transferencia completada"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "externalId": "EXT-2026-00152",
+      "type": "venta",
+      "sourceSystem": "Magento",
+      "status": "fallida",
+      "receivedAt": "2026-06-07T16:45:33Z",
+      "updatedAt": "2026-06-09T00:21:42.507Z",
+      "payload": {
+        "orderId": "ORD-88210",
+        "customer": "Roberto Hernández",
+        "items": [
+          {
+            "sku": "LAV-WHR-01",
+            "qty": 1,
+            "price": 650
+          }
+        ],
+        "total": 650,
+        "currency": "USD"
+      },
+      "errorMessage": "Producto LAV-WHR-01 no encontrado en catálogo destino",
+      "events": [
+        {
+          "timestamp": "2026-06-07T16:45:33Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Magento"
+        },
+        {
+          "timestamp": "2026-06-07T16:46:15Z",
+          "action": "procesando",
+          "detail": "Validación de catálogo"
+        },
+        {
+          "timestamp": "2026-06-07T16:47:01Z",
+          "action": "fallida",
+          "detail": "SKU no encontrado en catálogo destino"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "externalId": "EXT-2026-00153",
+      "type": "devolución",
+      "sourceSystem": "SAP",
+      "status": "completada",
+      "receivedAt": "2026-06-07T09:00:10Z",
+      "updatedAt": "2026-06-07T09:15:44Z",
+      "payload": {
+        "returnId": "RET-3300",
+        "customer": "Laura Ramírez",
+        "items": [
+          {
+            "sku": "AUD-BOS-QC",
+            "qty": 1,
+            "price": 329
+          }
+        ],
+        "reason": "Cambio de opinión"
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-07T09:00:10Z",
+          "action": "recibida",
+          "detail": "Solicitud de devolución recibida"
+        },
+        {
+          "timestamp": "2026-06-07T09:10:22Z",
+          "action": "validada",
+          "detail": "Política de devolución aplicada"
+        },
+        {
+          "timestamp": "2026-06-07T09:15:44Z",
+          "action": "completada",
+          "detail": "Devolución aprobada y crédito emitido"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "externalId": "EXT-2026-00154",
+      "type": "ajuste_inventario",
+      "sourceSystem": "WMS",
+      "status": "fallida",
+      "receivedAt": "2026-06-06T13:22:00Z",
+      "updatedAt": "2026-06-09T00:25:34.275Z",
+      "payload": {
+        "warehouseId": "WH-001",
+        "adjustments": [
+          {
+            "sku": "INVALID-SKU",
+            "from": 10,
+            "to": 5
+          }
+        ]
+      },
+      "errorMessage": "SKU 'INVALID-SKU' no existe en el sistema",
+      "events": [
+        {
+          "timestamp": "2026-06-06T13:22:00Z",
+          "action": "recibida",
+          "detail": "Ajuste recibido desde WMS"
+        },
+        {
+          "timestamp": "2026-06-06T13:24:30Z",
+          "action": "fallida",
+          "detail": "SKU inválido detectado"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "externalId": "EXT-2026-00155",
+      "type": "venta",
+      "sourceSystem": "Shopify",
+      "status": "completada",
+      "receivedAt": "2026-06-06T18:10:45Z",
+      "updatedAt": "2026-06-06T18:14:00Z",
+      "payload": {
+        "orderId": "ORD-88100",
+        "customer": "Pedro Castillo",
+        "items": [
+          {
+            "sku": "TAB-SAM-S9",
+            "qty": 1,
+            "price": 749.99
+          },
+          {
+            "sku": "PEN-SAM-S9",
+            "qty": 1,
+            "price": 49.99
+          }
+        ],
+        "total": 799.98,
+        "currency": "USD"
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-06T18:10:45Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Shopify"
+        },
+        {
+          "timestamp": "2026-06-06T18:12:30Z",
+          "action": "validada",
+          "detail": "Pago verificado"
+        },
+        {
+          "timestamp": "2026-06-06T18:14:00Z",
+          "action": "completada",
+          "detail": "Orden completada"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "externalId": "EXT-2026-00156",
+      "type": "transferencia",
+      "sourceSystem": "WMS",
+      "status": "fallida",
+      "receivedAt": "2026-06-08T12:00:00Z",
+      "updatedAt": "2026-06-08T12:04:17Z",
+      "payload": {
+        "transferId": "TRF-1135",
+        "fromWarehouse": "WH-002",
+        "toWarehouse": "WH-001",
+        "items": [
+          {
+            "sku": "CEL-SAM-S24",
+            "qty": 25
+          },
+          {
+            "sku": "CEL-SAM-A15",
+            "qty": 40
+          }
+        ]
+      },
+      "errorMessage": "La bodega destino WH-001 no tiene capacidad suficiente para recibir 65 unidades",
+      "events": [
+        {
+          "timestamp": "2026-06-08T12:00:00Z",
+          "action": "recibida",
+          "detail": "Solicitud de transferencia en cola"
+        },
+        {
+          "timestamp": "2026-06-08T12:02:30Z",
+          "action": "procesando",
+          "detail": "Verificando capacidad en bodega destino"
+        },
+        {
+          "timestamp": "2026-06-08T12:04:17Z",
+          "action": "fallida",
+          "detail": "Capacidad insuficiente en WH-001"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "externalId": "EXT-2026-00157",
+      "type": "venta",
+      "sourceSystem": "SAP",
+      "status": "completada",
+      "receivedAt": "2026-06-05T07:45:00Z",
+      "updatedAt": "2026-06-05T07:50:22Z",
+      "payload": {
+        "orderId": "ORD-87990",
+        "customer": "Gabriela Torres",
+        "items": [
+          {
+            "sku": "REF-SAM-FR",
+            "qty": 1,
+            "price": 1450
+          }
+        ],
+        "total": 1450,
+        "currency": "USD"
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-05T07:45:00Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde SAP"
+        },
+        {
+          "timestamp": "2026-06-05T07:48:10Z",
+          "action": "validada",
+          "detail": "Crédito aprobado"
+        },
+        {
+          "timestamp": "2026-06-05T07:50:22Z",
+          "action": "completada",
+          "detail": "Factura generada"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "externalId": "EXT-2026-00158",
+      "type": "devolución",
+      "sourceSystem": "Shopify",
+      "status": "fallida",
+      "receivedAt": "2026-06-08T13:05:00Z",
+      "updatedAt": "2026-06-08T13:11:18Z",
+      "payload": {
+        "returnId": "RET-3340",
+        "customer": "Fernando Díaz",
+        "items": [
+          {
+            "sku": "CAM-CAN-R7",
+            "qty": 1,
+            "price": 2499
+          }
+        ],
+        "reason": "Llegó dañado"
+      },
+      "errorMessage": "El número de serie del producto no coincide con el registrado en la orden original ORD-77301",
+      "events": [
+        {
+          "timestamp": "2026-06-08T13:05:00Z",
+          "action": "recibida",
+          "detail": "Solicitud de devolución recibida"
+        },
+        {
+          "timestamp": "2026-06-08T13:08:30Z",
+          "action": "procesando",
+          "detail": "En revisión por control de calidad"
+        },
+        {
+          "timestamp": "2026-06-08T13:11:18Z",
+          "action": "fallida",
+          "detail": "Número de serie no coincide con la orden original"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "externalId": "EXT-2026-00159",
+      "type": "venta",
+      "sourceSystem": "Magento",
+      "status": "fallida",
+      "receivedAt": "2026-06-04T15:30:00Z",
+      "updatedAt": "2026-06-04T15:32:45Z",
+      "payload": {
+        "orderId": "ORD-87800",
+        "customer": "Sofía Vargas",
+        "items": [
+          {
+            "sku": "SEC-BOD-01",
+            "qty": 3,
+            "price": 89.99
+          }
+        ],
+        "total": 269.97,
+        "currency": "USD"
+      },
+      "errorMessage": "Error de validación: dirección de envío incompleta — falta código postal",
+      "events": [
+        {
+          "timestamp": "2026-06-04T15:30:00Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Magento"
+        },
+        {
+          "timestamp": "2026-06-04T15:32:45Z",
+          "action": "fallida",
+          "detail": "Validación de datos fallida"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "externalId": "EXT-2026-00160",
+      "type": "ajuste_inventario",
+      "sourceSystem": "SAP",
+      "status": "completada",
+      "receivedAt": "2026-06-05T10:15:00Z",
+      "updatedAt": "2026-06-05T10:18:30Z",
+      "payload": {
+        "warehouseId": "WH-002",
+        "adjustments": [
+          {
+            "sku": "MON-DEL-27",
+            "from": 30,
+            "to": 28
+          },
+          {
+            "sku": "TEC-LOG-MX",
+            "from": 200,
+            "to": 195
+          }
+        ]
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-05T10:15:00Z",
+          "action": "recibida",
+          "detail": "Ajuste recibido desde SAP"
+        },
+        {
+          "timestamp": "2026-06-05T10:17:00Z",
+          "action": "validada",
+          "detail": "Conteo verificado"
+        },
+        {
+          "timestamp": "2026-06-05T10:18:30Z",
+          "action": "completada",
+          "detail": "Inventario actualizado"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "externalId": "EXT-2026-00161",
+      "type": "transferencia",
+      "sourceSystem": "Magento",
+      "status": "fallida",
+      "receivedAt": "2026-06-03T11:00:00Z",
+      "updatedAt": "2026-06-07T02:25:52.329Z",
+      "payload": {
+        "transferId": "TRF-1099",
+        "fromWarehouse": "WH-003",
+        "toWarehouse": "WH-001",
+        "items": [
+          {
+            "sku": "IMP-HP-LJ",
+            "qty": 5
+          }
+        ]
+      },
+      "errorMessage": "Stock insuficiente en bodega origen WH-003 para SKU IMP-HP-LJ",
+      "events": [
+        {
+          "timestamp": "2026-06-03T11:00:00Z",
+          "action": "recibida",
+          "detail": "Solicitud de transferencia recibida"
+        },
+        {
+          "timestamp": "2026-06-03T11:03:10Z",
+          "action": "procesando",
+          "detail": "Verificando disponibilidad"
+        },
+        {
+          "timestamp": "2026-06-03T11:05:20Z",
+          "action": "fallida",
+          "detail": "Stock insuficiente"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "externalId": "EXT-2026-00162",
+      "type": "venta",
+      "sourceSystem": "WMS",
+      "status": "procesando",
+      "receivedAt": "2026-06-08T14:00:00Z",
+      "updatedAt": "2026-06-09T01:07:25.361Z",
+      "payload": {
+        "orderId": "ORD-88520",
+        "customer": "Jorge Morales",
+        "items": [
+          {
+            "sku": "CON-PS5-D",
+            "qty": 1,
+            "price": 499.99
+          }
+        ],
+        "total": 499.99,
+        "currency": "USD"
+      },
+      "errorMessage": "El SKU CON-PS5-D está descontinuado y no puede procesarse en el sistema de ventas",
+      "events": [
+        {
+          "timestamp": "2026-06-08T14:00:00Z",
+          "action": "recibida",
+          "detail": "Orden en cola de procesamiento"
+        },
+        {
+          "timestamp": "2026-06-08T14:04:10Z",
+          "action": "procesando",
+          "detail": "Validando disponibilidad del producto"
+        },
+        {
+          "timestamp": "2026-06-08T14:06:44Z",
+          "action": "fallida",
+          "detail": "SKU descontinuado — venta no permitida"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "externalId": "EXT-2026-00163",
+      "type": "devolución",
+      "sourceSystem": "SAP",
+      "status": "procesando",
+      "receivedAt": "2026-06-08T15:20:00Z",
+      "updatedAt": "2026-06-09T00:32:51.444Z",
+      "payload": {
+        "returnId": "RET-3355",
+        "customer": "Valentina Ruiz",
+        "items": [
+          {
+            "sku": "ASP-DYS-V15",
+            "qty": 1,
+            "price": 699
+          }
+        ],
+        "reason": "No cumple expectativas"
+      },
+      "errorMessage": "La orden de compra original RET-3355 superó el plazo máximo de 30 días para devoluciones",
+      "events": [
+        {
+          "timestamp": "2026-06-08T15:20:00Z",
+          "action": "recibida",
+          "detail": "Solicitud de devolución pendiente de revisión"
+        },
+        {
+          "timestamp": "2026-06-08T15:22:10Z",
+          "action": "procesando",
+          "detail": "Verificando política de devoluciones"
+        },
+        {
+          "timestamp": "2026-06-08T15:23:55Z",
+          "action": "fallida",
+          "detail": "Plazo de devolución vencido (máx. 30 días)"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "externalId": "EXT-2026-00164",
+      "type": "venta",
+      "sourceSystem": "Shopify",
+      "status": "completada",
+      "receivedAt": "2026-06-04T20:10:00Z",
+      "updatedAt": "2026-06-04T20:15:40Z",
+      "payload": {
+        "orderId": "ORD-87850",
+        "customer": "Diego Salazar",
+        "items": [
+          {
+            "sku": "AUD-APP-MAX",
+            "qty": 1,
+            "price": 549
+          },
+          {
+            "sku": "CAB-USB-C",
+            "qty": 1,
+            "price": 19.99
+          }
+        ],
+        "total": 568.99,
+        "currency": "USD"
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-04T20:10:00Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Shopify"
+        },
+        {
+          "timestamp": "2026-06-04T20:13:20Z",
+          "action": "validada",
+          "detail": "Pago confirmado vía Stripe"
+        },
+        {
+          "timestamp": "2026-06-04T20:15:40Z",
+          "action": "completada",
+          "detail": "Orden lista para despacho"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "externalId": "EXT-2026-00165",
+      "type": "ajuste_inventario",
+      "sourceSystem": "WMS",
+      "status": "procesando",
+      "receivedAt": "2026-06-08T16:00:00Z",
+      "updatedAt": "2026-06-09T00:29:53.059Z",
+      "payload": {
+        "warehouseId": "WH-001",
+        "adjustments": [
+          {
+            "sku": "TV-SAM-75",
+            "from": 15,
+            "to": 12
+          },
+          {
+            "sku": "TV-LG-55",
+            "from": 22,
+            "to": 20
+          },
+          {
+            "sku": "TV-SON-65",
+            "from": 8,
+            "to": 6
+          }
+        ]
+      },
+      "errorMessage": "Error de concurrencia: otro proceso modificó el inventario de TV-SAM-75 durante la transacción",
+      "events": [
+        {
+          "timestamp": "2026-06-08T16:00:00Z",
+          "action": "recibida",
+          "detail": "Ajuste masivo recibido"
+        },
+        {
+          "timestamp": "2026-06-08T16:02:10Z",
+          "action": "procesando",
+          "detail": "Procesando 3 de 3 SKUs"
+        },
+        {
+          "timestamp": "2026-06-08T16:05:33Z",
+          "action": "fallida",
+          "detail": "Conflicto de concurrencia en TV-SAM-75 — ajuste revertido"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "externalId": "EXT-2026-00166",
+      "type": "venta",
+      "sourceSystem": "Magento",
+      "status": "completada",
+      "receivedAt": "2026-06-03T09:30:00Z",
+      "updatedAt": "2026-06-03T09:36:15Z",
+      "payload": {
+        "orderId": "ORD-87700",
+        "customer": "Camila Ortega",
+        "items": [
+          {
+            "sku": "LAP-LEN-T14",
+            "qty": 1,
+            "price": 1299
+          },
+          {
+            "sku": "MOU-LOG-MX3",
+            "qty": 1,
+            "price": 99.99
+          },
+          {
+            "sku": "PAD-LOG-XL",
+            "qty": 1,
+            "price": 29.99
+          }
+        ],
+        "total": 1428.98,
+        "currency": "USD"
+      },
+      "errorMessage": null,
+      "events": [
+        {
+          "timestamp": "2026-06-03T09:30:00Z",
+          "action": "recibida",
+          "detail": "Transacción recibida desde Magento"
+        },
+        {
+          "timestamp": "2026-06-03T09:33:00Z",
+          "action": "validada",
+          "detail": "Stock y pago verificados"
+        },
+        {
+          "timestamp": "2026-06-03T09:36:15Z",
+          "action": "completada",
+          "detail": "Factura emitida"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+<div class="transaction-list-container">
+
+  <div class="list-header">
+    <div>
+      <h1 class="list-title">Transacciones</h1>
+    </div>
+    <div class="header-actions">
+      <p-button
+        icon="pi pi-refresh"
+        [rounded]="true"
+        [text]="true"
+        severity="secondary"
+        pTooltip="Recargar"
+        tooltipPosition="bottom"
+        (onClick)="loadTransactions()"
+        [disabled]="loading()"
+      />
+    </div>
+  </div>
+
+
+  @if (error()) {
+    <div class="error-banner">
+      <i class="pi pi-exclamation-triangle"></i>
+      <span>{{ error() }}</span>
+      <p-button
+        label="Reintentar"
+        icon="pi pi-refresh"
+        severity="secondary"
+        [outlined]="true"
+        size="small"
+        (onClick)="loadTransactions()"
+      />
+    </div>
+  }
+
+
+  <app-transaction-filters
+    (filtersChanged)="onFiltersChanged($event)"
+    (filtersCleared)="onFiltersCleared()"
+  />
+
+
+  <div class="table-card">
+    <p-table
+      [value]="loading() ? dummyRows : transactions()"
+      [paginator]="!loading()"
+      [rows]="8"
+      [rowsPerPageOptions]="[5, 8, 10, 20]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} transacciones"
+      [sortField]="'receivedAt'"
+      [sortOrder]="-1"
+      [tableStyle]="{ 'min-width': '80rem' }"
+      styleClass="p-datatable-sm"
+      [scrollable]="true"
+      scrollHeight="flex"
+    >
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="id" style="width: 5rem">
+            ID <p-sortIcon field="id" />
+          </th>
+          <th pSortableColumn="externalId" style="min-width: 10rem">
+            ID Externo <p-sortIcon field="externalId" />
+          </th>
+          <th pSortableColumn="type" style="min-width: 10rem">
+            Tipo <p-sortIcon field="type" />
+          </th>
+          <th pSortableColumn="sourceSystem" style="min-width: 8rem">
+            Sistema Origen <p-sortIcon field="sourceSystem" />
+          </th>
+          <th pSortableColumn="status" style="min-width: 9rem">
+            Estado <p-sortIcon field="status" />
+          </th>
+          <th pSortableColumn="receivedAt" style="min-width: 11rem">
+            Recepción <p-sortIcon field="receivedAt" />
+          </th>
+          <th pSortableColumn="updatedAt" style="min-width: 11rem">
+            Última Actualización <p-sortIcon field="updatedAt" />
+          </th>
+          <th style="width: 6rem; text-align: center">Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template #body let-row>
+
+        @if (loading()) {
+          <tr>
+            <td><p-skeleton width="2rem" /></td>
+            <td><p-skeleton width="8rem" /></td>
+            <td><p-skeleton width="6rem" /></td>
+            <td><p-skeleton width="5rem" /></td>
+            <td><p-skeleton width="6rem" height="1.5rem" borderRadius="1rem" /></td>
+            <td><p-skeleton width="9rem" /></td>
+            <td><p-skeleton width="9rem" /></td>
+            <td style="text-align: center"><p-skeleton shape="circle" size="2rem" /></td>
+          </tr>
+        } @else {
+          <tr>
+            <td class="cell-id">{{ row.id }}</td>
+            <td>
+              <span class="external-id">{{ row.externalId }}</span>
+            </td>
+            <td>
+              <span class="type-badge type-{{ row.type }}">
+                {{ getTypeLabel(row.type) }}
+              </span>
+            </td>
+            <td>
+              <span class="source-system">{{ row.sourceSystem }}</span>
+            </td>
+            <td>
+              <p-tag
+                [value]="row.status | titlecase"
+                [severity]="getStatusSeverity(row.status)"
+                [icon]="getStatusIcon(row.status)"
+                [rounded]="true"
+              />
+            </td>
+            <td class="cell-date">
+              {{ row.receivedAt | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+            <td class="cell-date">
+              {{ row.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+            </td>
+            <td style="text-align: center">
+              <div class="flex items-center justify-center gap-1">
+                <p-button
+                  icon="pi pi-eye"
+                  [rounded]="true"
+                  [text]="true"
+                  severity="info"
+                  pTooltip="Ver detalle"
+                  tooltipPosition="left"
+                  (onClick)="onViewDetail(row)"
+                />
+                @if (row.status === 'fallida') {
+                  <p-button
+                    icon="pi pi-replay"
+                    [rounded]="true"
+                    [text]="true"
+                    severity="danger"
+                    pTooltip="Reprocesar transacción"
+                    tooltipPosition="left"
+                    [loading]="reprocessingId() === row.id"
+                    (onClick)="onReprocess(row)"
+                  />
+                }
+              </div>
+            </td>
+          </tr>
+        }
+      </ng-template>
+
+
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="8">
+            <div class="empty-state">
+              <i class="pi pi-inbox"></i>
+              <p class="empty-title">Sin transacciones</p>
+              <p class="empty-subtitle">No se encontraron transacciones para mostrar</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+<p-toast position="top-right" />
+
+
+<app-reprocess-confirm-dialog
+  [transaction]="reprocessTarget()"
+  [(visible)]="showReprocessDialog"
+  [loading]="reprocessingId() !== null"
+  (confirmed)="onReprocessConfirmed()"
+  (cancelled)="onReprocessCancelled()"
+/>
+
+
+<app-transaction-detail
+  [transaction]="selectedTransaction()"
+  [(visible)]="displayDetailDialog"
+  [reprocessing]="reprocessingId() !== null && reprocessingId() === selectedTransaction()?.id"
+  (reprocess)="onReprocess($event.transaction)"
+/>
+

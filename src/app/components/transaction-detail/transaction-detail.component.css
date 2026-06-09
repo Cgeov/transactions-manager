@@ -1,0 +1,103 @@
+
+.payload-box {
+  background-color: #272822;
+  color: #f8f8f2;
+  border-radius: 6px;
+  padding: 1rem;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #3e3f38;
+}
+
+.payload-box pre {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+
+.events-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+}
+
+.timeline-marker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 1rem;
+}
+
+.timeline-marker {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-500);
+  border: 2px solid var(--color-primary-100);
+  z-index: 10;
+  margin-top: 0.25rem;
+}
+
+.timeline-connector {
+  width: 2px;
+  background-color: var(--color-surface-300);
+  flex-grow: 1;
+  position: absolute;
+  top: 0.875rem;
+  bottom: -0.875rem;
+  z-index: 1;
+}
+
+.timeline-content {
+  background-color: var(--color-surface-50);
+  border: 1px solid var(--color-surface-200);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  flex-grow: 1;
+}
+
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+
+.error-banner i {
+  font-size: 1.25rem;
+}
+
+
+::ng-deep .custom-dialog .p-dialog-content {
+  padding: 1.5rem !important;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+::ng-deep .custom-dialog .p-dialog-header {
+  border-bottom: 1px solid var(--color-surface-200);
+  padding: 1.25rem 1.5rem !important;
+  background-color: #ffffff;
+}
+
+::ng-deep .custom-dialog .p-dialog-footer {
+  border-top: 1px solid var(--color-surface-200);
+  padding: 1rem 1.5rem !important;
+  background-color: #ffffff;
+}

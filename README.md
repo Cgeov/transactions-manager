@@ -1,59 +1,88 @@
-# UnicomerTest
+# Gestor de Transacciones
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.1.
+Aplicación desarrollada con Angular para consultar, filtrar y gestionar transacciones operativas provenientes de distintos sistemas.
 
-## Development server
+## Tecnologías utilizadas
 
-To start a local development server, run:
+- Angular 21
+- PrimeNG 21
+- Tailwind CSS
+- RxJS
+- JSON Server (API que se simuló para el desarrollo)
+
+## Funcionalidades principales
+
+- Consulta de transacciones en una tabla paginada.
+- Filtros por estado, tipo de transacción, sistema de origen y rango de fechas.
+- Búsqueda por texto con debounce para reducir llamadas innecesarias.
+- Visualización del detalle de cada transacción.
+- Consulta del historial de eventos asociados a una transacción.
+- Reproceso de transacciones fallidas con confirmación previa.
+- Notificaciones visuales para informar el resultado de las acciones realizadas.
+
+## Instalación
+
+```bash
+npm install
+```
+
+## Ejecución
+
+Primero iniciar la API simulada:
+
+```bash
+npm run api
+```
+
+Luego iniciar la aplicación:
+
+```bash
+npm start
+```
+
+o
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La aplicación estará disponible en:
 
-## Code scaffolding
+http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Pruebas
 
 ```bash
-ng generate --help
+npm run test
 ```
 
-## Building
+## Pantallas y Flujos
 
-To build the project run:
+- **Pantalla principal:** muestra los registros y acciones disponibles.
+- **Filtros:** permite realizar búsquedas y aplicar criterios de consulta.
+- **Detalle de transacción:** presenta información completa, payload e historial.
+- **Reproceso:** permite reenviar transacciones fallidas mediante una confirmación previa.
 
-```bash
-ng build
-```
+## Decisiones técnicas
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Uso de Reactive Forms para la gestión de filtros.
+- Implementación de debounceTime y distinctUntilChanged en búsquedas.
+- Uso de takeUntilDestroyed para limpieza automática de suscripciones.
+- Tipado estricto en TypeScript.
+- Uso de Signals para el manejo del estado.
+- Uso de Tailwind CSS para estilos.
 
-## Running unit tests
+## Consideraciones
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- Solo las transacciones fallidas pueden reprocesarse.
+- La persistencia se realiza mediante JSON Server.
+- La solución puede evolucionar fácilmente a paginación desde backend.
 
-```bash
-ng test
-```
+## Mejoras futuras
 
-## Running end-to-end tests
+- Paginación y ordenamiento desde backend.
+- Autenticación y permisos.
+- Generación de transacciones.
+- Generación de escenarios de pruebas.
+- Generación de endpoints para obtener catalogo de valores para estados, tipos y sistemas de origen y popular información de selects en el apartado de filtros.
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

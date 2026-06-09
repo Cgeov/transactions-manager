@@ -1,1 +1,99 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+@theme {
+  --color-primary-100: #ebe1e9;
+  --color-primary-500: #7d5573;
+  --color-primary-800: #4b3b47;
+
+  --color-secondary-300: #b5aeae;
+  --color-secondary-400: #948b8b;
+  --color-secondary-500: #7a7171;
+  --color-secondary-600: #6a6262;
+  --color-secondary-700: #585151;
+  --color-secondary-800: #4c4646;
+
+  --color-neutral-400: #adaaa0;
+  --color-neutral-500: #9c9990;
+  --color-neutral-600: #8a8680;
+  --color-neutral-700: #736f6a;
+
+  --color-accent-100: #eff1e0;
+  --color-accent-800: #595b3d;
+
+  --color-surface-50: #f9f7f9;
+  --color-surface-100: #f2eff1;
+  --color-surface-200: #e8e3e7;
+  --color-surface-300: #e0d8de;
+}
+
+@import "primeicons/primeicons.css";
+
+
+
+.p-tag {
+  padding: 0.35rem 0.8rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  border-radius: 9999px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+
+.type-badge {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.p-select-option {
+  padding: 0.75rem 1rem !important;
+  font-size: 0.875rem !important;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+
+.p-select {
+  padding: 0.35rem 0.75rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 8px !important;
+}
+
+
+.p-inputtext {
+  padding: 0.5rem 0.875rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 8px !important;
+}
+
+
+.p-datepicker-input {
+  padding: 0.5rem 0.875rem !important;
+  font-size: 0.875rem !important;
+  border-radius: 8px !important;
+}
+
+.p-datepicker {
+  padding: 1px 0 0 0 !important;
+  border-radius: 12px !important;
+}
+
+.p-toast-message {
+  padding: 1.25rem 1.5rem !important;
+}
+
+.p-toast-message-content {
+  padding: 0 !important;
+  gap: 1rem !important;
+}
+
+.p-toast-detail {
+  margin-top: 0.35rem !important;
+}

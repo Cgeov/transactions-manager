@@ -1,0 +1,16 @@
+
+.p-inputicon-left {
+  position: relative;
+}
+
+.p-inputicon-left i {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  color: var(--color-neutral-400);
+}
+
+.p-inputicon-left input {
+  padding-left: 2.25rem !important;
+}
