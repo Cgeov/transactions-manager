@@ -26,6 +26,17 @@ Aplicación desarrollada con Angular para consultar, filtrar y gestionar transac
 npm install
 ```
 
+## Requisitos
+
+- Node.js 26.3.0
+- npm 11 o superior
+
+Verificar la versión instalada:
+
+```bash
+node -v
+```
+
 ## Ejecución
 
 Primero iniciar la API simulada:
